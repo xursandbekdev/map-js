@@ -19,7 +19,7 @@ const TaxiMap = () => {
                 },
                 (error) => {
                     console.error("Joylashuvni aniqlashda xatolik:", error);
-                    setUserLocation([69.2401, 41.3111]);
+                    setUserLocation([69.2401, 41.3111]); // O'zbekistonning o'rtasidagi joylashuv
                 }
             );
         } else {
@@ -31,7 +31,7 @@ const TaxiMap = () => {
         if (userLocation && !map) {
             const initMap = new maplibregl.Map({
                 container: "map",
-                style: "https://tiles.stadiamaps.com/styles/alidade_smooth.json",
+                style: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", // OpenStreetMap dan foydalanamiz
                 center: userLocation,
                 zoom: 12,
             });
@@ -97,10 +97,10 @@ const TaxiMap = () => {
                 </button>
             </div>
             {showInput && (
-                <div className=" px-5 w-full max-w-md mx-auto mb-4 z-50">
+                <div className="px-5 w-full max-w-md mx-auto mb-4 z-50">
                     <input
                         type="text"
-                        className="border-2 p-2 w-full rounded-md mb-2 outline-none border-gray-400 focus:border-blue-600 "
+                        className="border-2 p-2 w-full rounded-md mb-2 outline-none border-gray-400 focus:border-blue-600"
                         placeholder="Manzilni kiriting..."
                         value={searchQuery}
                         onChange={handleSearch}
