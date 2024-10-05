@@ -31,7 +31,27 @@ const TaxiMap = () => {
         if (userLocation && !map) {
             const initMap = new maplibregl.Map({
                 container: "map",
-                style: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", // OpenStreetMap dan foydalanamiz
+                style: {
+                    version: 8,
+                    sources: {
+                        osm: {
+                            type: "raster",
+                            tiles: [
+                                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // OpenStreetMap URL
+                            ],
+                            tileSize: 256
+                        }
+                    },
+                    layers: [
+                        {
+                            id: "osm",
+                            type: "raster",
+                            source: "osm",
+                            minzoom: 0,
+                            maxzoom: 19
+                        }
+                    ]
+                },
                 center: userLocation,
                 zoom: 12,
             });
@@ -73,11 +93,8 @@ const TaxiMap = () => {
         const newLocation = [parseFloat(lon), parseFloat(lat)];
 
         map.setCenter(newLocation);
-
         marker.setLngLat(newLocation);
-
         setUserLocation(newLocation);
-
         setSuggestions([]);
         setSearchQuery("");
     };
